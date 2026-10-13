@@ -215,7 +215,7 @@ body.home-page {
   border-radius: var(--ide-radius-lg); filter: saturate(.92);
 }
 .ide-about__shot figcaption {
-  margin-top: .6rem; color: var(--ink-p-soft); font-family: var(--ide-mono); font-size: .74rem;
+  margin-top: .6rem; color: var(--ink-p-soft); font-family: var(--ide-mono); font-size: .8125rem; line-height: 1.5;
 }
 
 /* A soft aura pulsing outward behind a portrait — a photo that feels present
@@ -550,7 +550,7 @@ body.home-page {
   .ide-about__shot--1, .ide-about__shot--2, .ide-about__shot--3 { margin-top: 0; }
   /* All three photos stay — they just get smaller. Hiding one would drop
      real content to save layout width, which is the wrong trade. */
-  .ide-about__shot figcaption { font-size: .68rem; }
+  .ide-about__shot figcaption { font-size: .8125rem; }
   .ide-about__stats strong { font-size: 1.4rem; }
   .ide-stack__card { min-height: 48vh; }
   .ide-flight__stage { min-height: 720px; }
@@ -579,6 +579,19 @@ body.home-page {
   .hero-actions { align-items: stretch; flex-direction: column; }
   .ide-run-btn { justify-content: center; }
 }
+/* A readable document is the default; the controller opts into choreography. */
+.home-page:not(.home-motion-ready) [data-reveal] { --p: 1 !important; opacity: 1 !important; transform: none !important; filter: none !important; }
+.home-page:not(.home-motion-ready) [data-anim],
+.home-page:not(.home-motion-ready) .ide-word { opacity: 1 !important; transform: none !important; clip-path: none !important; will-change: auto; }
+.home-page:not(.home-motion-ready) [data-anim="dissolve"] { opacity: 0 !important; }
+.home-page:not(.home-motion-ready) .ide-about { height: auto; padding-block: 3.5rem; }
+.home-page:not(.home-motion-ready) .ide-about__sticky { position: static; height: auto; overflow: visible; }
+.home-page:not(.home-motion-ready) .ide-about__stage { height: auto; display: flex; flex-direction: column; gap: 1.5rem; }
+.home-page:not(.home-motion-ready) .ide-about__panel { position: relative; top: 0; width: 100%; height: clamp(220px, 40vw, 500px); }
+.home-page:not(.home-motion-ready) .ide-about__text,
+.home-page:not(.home-motion-ready) .ide-about__strip { position: relative; inset: auto; width: 100%; }
+.home-page:not(.home-motion-ready) .ide-about__shot { margin-top: 0; }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .home-page *, .home-page *::before, .home-page *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }

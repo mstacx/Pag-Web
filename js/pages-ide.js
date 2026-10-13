@@ -32,25 +32,6 @@
       animation.onfinish = release;
       animation.oncancel = release;
     };
-    const menu = doc.querySelector('.ide-menu-toggle');
-    const tabs = doc.querySelector('.ide-tabs-wrap');
-    if (menu && tabs) {
-      doc.body.classList.add('menu-ready');
-      const toggleMenu = open => {
-        tabs.classList.toggle('show', open);
-        menu.setAttribute('aria-expanded', String(open));
-        menu.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
-      };
-      menu.addEventListener('click', () => toggleMenu(menu.getAttribute('aria-expanded') !== 'true'));
-      doc.addEventListener('keydown', event => {
-        if (event.key === 'Escape' && menu.getAttribute('aria-expanded') === 'true') {
-          toggleMenu(false);
-          menu.focus();
-        }
-      });
-      tabs.addEventListener('click', event => { if (event.target.closest('a')) toggleMenu(false); });
-    }
-
     // Only the page title greets once. Content scenes below are reversible scroll motion.
     play(doc.querySelector('h1'), [{ opacity: .6, transform: 'translateY(12px)' }, { opacity: 1, transform: 'none' }], { duration: 540 });
 
@@ -74,7 +55,7 @@
     doc.querySelectorAll('.page-section-head h2, .learning-end h2, .join-steps > div > h2, .team-group__head h3').forEach(element => addScene(element, 'heading'));
     doc.querySelectorAll('.alliance-logo').forEach(element => addScene(element, 'from-left', element.closest('.alliance-row')));
     doc.querySelectorAll('.join-photos__second, .learning-intro__note').forEach(element => addScene(element, 'layer', element.parentElement));
-    doc.querySelectorAll('.alliance-row, .course-entry, .join-steps__list li, .team-group__head').forEach(element => addScene(element, 'line'));
+    doc.querySelectorAll('.alliance-row, .course-entry, .join-steps__list li, .team-group').forEach(element => addScene(element, 'line'));
     const caseLinks = [...doc.querySelectorAll('.project-flow a')];
     const caseSteps = caseLinks.map(link => doc.getElementById(link.hash.slice(1)));
     let caseTops = [];
@@ -194,6 +175,7 @@
     }));
     const tocLinks = [...doc.querySelectorAll('.article-toc a, .team-areas a')];
     const headings = tocLinks.map(link => doc.getElementById(link.hash.slice(1)));
+    let activeLink = null;
     let frame = 0;
     let previousTime = 0;
     let needsMeasure = true;
@@ -221,6 +203,13 @@
           if (index === active) link.setAttribute('aria-current', 'location');
           else link.removeAttribute('aria-current');
         });
+        // A one-line index that scrolls sideways keeps the current entry in view.
+        const link = tocLinks[active];
+        const bar = link && link.parentElement;
+        if (link !== activeLink && bar && bar.scrollWidth > bar.clientWidth) {
+          bar.scrollTo({ left: link.offsetLeft - bar.offsetLeft - 24, behavior: reduced.matches ? 'auto' : 'smooth' });
+        }
+        activeLink = link;
       }
     };
     function tick(time) {

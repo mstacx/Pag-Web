@@ -56,6 +56,7 @@ h3 { font-size: clamp(1.4rem, 2vw, 2rem); }
 .page-button--outline:hover { background: var(--page-raised); color: var(--page-accent); }
 .page-link { color: var(--page-accent); display: inline-flex; gap: 12px; align-items: center; min-height: 44px; font-size: .94rem; font-weight: 650; }
 .page-link:hover { text-decoration: underline; }
+.course-entry__contact { margin-top: 12px; font-size: .85rem; }
 .page-photo { overflow: hidden; background: var(--page-raised); }
 .page-photo img { width: 100%; height: 100%; object-fit: cover; }
 .page-photo figcaption { padding: 13px 0 0; color: var(--page-muted); font-size: .8rem; }
@@ -209,29 +210,47 @@ h3 { font-size: clamp(1.4rem, 2vw, 2rem); }
 .team-values { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; margin-top: 36px; }
 .team-values h2 { font-size: 1.45rem; margin-bottom: 12px; }
 .team-values p { color: var(--page-muted); font-size: .93rem; margin: 0; }
-.team-areas { display: flex; gap: 10px 28px; flex-wrap: wrap; margin: 26px 0 32px; padding-block: 14px; border-block: 1px solid var(--page-line); }
-.team-areas a { display: inline-flex; align-items: center; min-height: 44px; font-size: .85rem; color: var(--page-muted); position: relative; }
+.team-areas-bar { position: sticky; top: 0; z-index: 15; margin: 26px 0 0; border-block: 1px solid var(--page-line); background: rgba(20, 23, 42, .94); box-shadow: 0 0 0 100vmax rgba(20, 23, 42, .94); clip-path: inset(0 -100vmax); backdrop-filter: blur(10px); }
+.team-areas { display: flex; gap: 30px; overflow-x: auto; scrollbar-width: none; padding-block: 6px; padding-right: 48px; -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 48px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 48px), transparent); }
+.team-areas::-webkit-scrollbar { display: none; }
+.team-areas a { display: inline-flex; align-items: center; flex-shrink: 0; min-height: 44px; white-space: nowrap; font-size: .85rem; color: var(--page-muted); position: relative; }
+.team-areas a span { margin-left: 8px; font: 400 .62rem var(--page-mono); opacity: .7; }
 .team-areas a::after { content: ''; position: absolute; bottom: 3px; inset-inline: 0; height: 2px; background: var(--page-pink); transform: scaleX(0); transform-origin: left; transition: transform .3s var(--page-ease); }
 .team-areas a:hover, .team-areas a[aria-current='location'] { color: var(--page-ink); }
+.team-areas a[aria-current='location'] span { color: var(--page-pink); opacity: 1; }
 .team-areas a:hover::after, .team-areas a[aria-current='location']::after { transform: scaleX(1); }
-.team-group { padding-top: 26px; margin-bottom: 45px; border-top: 1px solid var(--page-line); }
-.team-group__head { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; margin-bottom: 25px; }
-.team-group__head h3 { font-size: 1.8rem; }
-.team-group__head span { color: var(--page-muted); font: .7rem var(--page-mono); }
-.team-portraits { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 32px 24px; }
+/* Each area: its name stays beside the people while they scroll past. */
+.team-group { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 56px; padding-block: 48px; border-top: 1px solid var(--page-line); }
+.team-areas-bar + .team-group { border-top: 0; }
+.team-areas-bar + .team-group::after { display: none; }
+.team-group__head { position: sticky; top: 92px; align-self: start; }
+.team-group__head h3 { font-size: 1.75rem; line-height: 1.15; margin: 0 0 12px; text-wrap: balance; }
+.team-group__head span { color: var(--page-accent); font: 500 .75rem var(--page-mono); }
+.team-group__head p { color: var(--page-muted); font-size: .92rem; line-height: 1.7; margin: 18px 0 0; max-width: 28ch; }
+/* The lead takes a 2x2 cell; everyone else fills the mosaic around it. */
+.team-portraits { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 30px 16px; grid-auto-flow: dense; align-items: start; }
 .member-portrait { min-width: 0; }
-.member-portrait img, .member-portrait__empty { aspect-ratio: 4/5; width: 100%; object-fit: cover; object-position: center 28%; background: var(--page-raised); }
-.member-portrait__photo { overflow: hidden; }
-.member-portrait img { filter: grayscale(1); transition: filter .45s, transform .65s var(--page-ease); }
+.member-portrait--lead { grid-column: span 2; grid-row: span 2; }
+.member-portrait__photo, .member-portrait__empty { position: relative; overflow: hidden; aspect-ratio: 4/5; background: var(--page-raised); }
+.member-portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center 28%; filter: grayscale(1); transition: filter .45s, transform .65s var(--page-ease); }
 .member-portrait:hover img, .member-portrait:focus-within img { filter: grayscale(0); transform: scale(1.04); }
-.member-portrait h4 { transition: color .25s; }
-.member-portrait:hover h4 { color: var(--page-pink); }
 @media (hover: none) { .member-portrait img { filter: grayscale(.2); } }
-.member-portrait h4 { font-size: .98rem; line-height: 1.5; font-weight: 750; margin: 12px 0 4px; }
-.member-portrait p { font-size: .76rem; line-height: 1.65; color: var(--page-muted); margin: 0; }
+.member-portrait__career { position: absolute; inset: auto 0 0; padding: 30px 10px 9px; font-size: .75rem; line-height: 1.35; color: #fff; background: linear-gradient(transparent, rgba(12, 14, 28, .88)); opacity: 0; transform: translateY(8px); transition: opacity .3s, transform .4s var(--page-ease); pointer-events: none; }
+.member-portrait:hover .member-portrait__career, .member-portrait:focus-within .member-portrait__career { opacity: 1; transform: none; }
+.member-portrait h4 { font-size: .84rem; line-height: 1.35; font-weight: 700; margin: 10px 0 0; transition: color .25s; }
+.member-portrait:hover h4 { color: var(--page-pink); }
+.member-portrait p { font-size: .8rem; line-height: 1.6; color: var(--page-muted); margin: 2px 0 0; }
+.member-portrait p.member-portrait__role { font: 500 .75rem/1.6 var(--page-mono); color: var(--page-pink); margin-top: 5px; }
+.member-portrait--lead h4 { font-size: 1.12rem; margin-top: 14px; }
+.member-portrait--lead p.member-portrait__role { font-size: .75rem; }
 .member-portrait__empty { display: grid; place-content: center; text-align: center; color: var(--page-muted); }
-.member-portrait__empty span { font-size: 2rem; color: var(--page-accent); }
-.member-portrait__empty small { font-size: .7rem; }
+.member-portrait__empty span[aria-hidden] { font: 600 1.4rem var(--page-mono); color: var(--page-accent); }
+.member-portrait__empty small { font-size: .66rem; }
+/* The complete board opens the directory in three columns, then two on mobile. */
+.team-group--board .team-portraits { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.team-group--board .member-portrait--lead { grid-column: auto; grid-row: auto; }
+.team-group--board .member-portrait__photo { aspect-ratio: 1; }
+.team-group--board .member-portrait--lead h4 { font-size: 1.3rem; }
 
 /* Join: a real invitation, with direct channels instead of a fake form. */
 .join-layout { display: grid; grid-template-columns: 1fr .95fr; gap: 70px; align-items: center; padding-bottom: 24px; }
@@ -272,11 +291,15 @@ h3 { font-size: clamp(1.4rem, 2vw, 2rem); }
 .journal-archive img { width: 100%; max-height: 270px; object-fit: cover; }
 .journal-archive h3 { font-size: 2.2rem; margin: 14px 0 18px; }
 .journal-archive p { color: var(--page-muted); max-width: 55ch; }
+.journal-archive + .journal-archive { border-top: 0; }
 .article-heading { max-width: 980px; padding-bottom: 40px; }
 .article-heading h1 { font-size: clamp(2.4rem, 4.5vw, 4.3rem); margin-bottom: 26px; }
 .article-heading .page-meta { font-size: .85rem; }
 .article-cover { height: 360px; margin-bottom: 40px; }
 .article-cover--science img { object-fit: contain; background: var(--page-raised); }
+.article-cover--caption { height: auto; overflow: visible; background: none; }
+.article-cover__image { height: 360px; overflow: hidden; background: var(--page-raised); }
+.article-cover--caption img { height: 100%; }
 .article-layout { display: grid; grid-template-columns: 235px minmax(0, 1fr); gap: 70px; padding-bottom: 55px; }
 .article-aside { align-self: start; position: sticky; top: 110px; }
 .article-aside h2 { font-size: 1rem; margin-bottom: 17px; }
@@ -289,9 +312,13 @@ h3 { font-size: clamp(1.4rem, 2vw, 2rem); }
 .article-body h2 { font-size: clamp(1.6rem, 2.4vw, 2.2rem); line-height: 1.3; margin: 2em 0 .8em; }
 .article-body h2:first-child { margin-top: 0; }
 .article-body img { width: 100%; max-height: 460px; object-fit: contain; background: #eff0f8; margin: 32px 0; }
-.article-body ul { padding-left: 22px; color: var(--page-muted); }
+.article-body ul, .article-body ol { padding-left: 22px; color: var(--page-muted); }
 .article-body li { margin-bottom: 16px; }
 .article-body .sources { font-size: .9rem; border-top: 1px solid var(--page-line); margin-top: 40px; }
+.article-body .sources a { color: var(--page-accent); text-decoration: underline; overflow-wrap: anywhere; }
+.article-figure { margin-block: 32px; }
+.article-body .article-figure img { margin: 0; }
+.article-figure figcaption { padding-top: 13px; color: var(--page-muted); font-size: 13px; line-height: 1.7; }
 .article-body .author-line { color: var(--page-ink); }
 .article-archive-note { padding: 20px 0; border-block: 1px solid var(--page-line); font-size: .85rem; color: var(--page-muted); }
 
@@ -300,7 +327,8 @@ h3 { font-size: clamp(1.4rem, 2vw, 2rem); }
   .page-shell { width: calc(100% - 56px); }
   .learning-intro, .alliance-intro, .project-feature, .join-layout { gap: 38px; }
   .catalog { grid-template-columns: 200px 1fr; gap: 38px; }
-  .team-portraits { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .team-group { grid-template-columns: 200px minmax(0, 1fr); gap: 36px; }
+  .team-portraits { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .article-layout { gap: 40px; grid-template-columns: 200px minmax(0, 1fr); }
 }
 @media (max-width: 900px) {
@@ -320,7 +348,10 @@ h3 { font-size: clamp(1.4rem, 2vw, 2rem); }
   .alliance-logo { grid-row: span 2; width: 122px; height: 116px; }
   .alliance-row__body { grid-column: 2; }
   .team-values { gap: 30px; }
-  .team-portraits { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .team-group { grid-template-columns: 1fr; gap: 22px; padding-block: 36px; }
+  .team-group__head { position: static; }
+  .team-group__head p { max-width: 46ch; margin-top: 10px; }
+  .team-portraits { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .join-photos > figure.page-photo { height: 440px; }
   .join-photos__second { left: -10px; width: 58%; height: 180px; }
   .join-photos__cat { width: 140px; right: -24px; }
@@ -382,14 +413,15 @@ h3 { font-size: clamp(1.4rem, 2vw, 2rem); }
   .team-intro__heading { margin-bottom: 24px; }
   .team-panorama { height: 220px; }
   .team-values { grid-template-columns: 1fr; gap: 24px; margin-top: 26px; }
-  .team-areas { gap: 4px 22px; margin-top: 20px; }
-  .team-portraits { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 16px; }
-  .team-group { margin-bottom: 25px; padding-top: 24px; }
-  .team-group__head h3 { font-size: 1.45rem; }
-  .team-group__head { align-items: center; }
-  .team-group__head span { font-size: .7rem; flex-shrink: 0; }
-  .member-portrait h4 { font-size: .91rem; }
-  .member-portrait p { font-size: .7rem; }
+  .team-areas-bar { margin-top: 18px; }
+  .team-areas { gap: 22px; }
+  .team-group { padding-block: 30px; }
+  .team-group__head h3 { font-size: 1.4rem; margin-bottom: 6px; }
+  .team-portraits { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px 10px; }
+  .member-portrait h4 { font-size: .76rem; margin-top: 8px; }
+  .member-portrait--lead h4 { font-size: .98rem; }
+  .team-group--board .team-portraits { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .team-group--board .member-portrait--lead h4 { font-size: 1rem; }
   .join-copy { order: -1; }
   .join-photos { padding-bottom: 66px; margin-inline: 10px; }
   .join-photos > figure.page-photo { height: 360px; }
@@ -408,6 +440,8 @@ h3 { font-size: clamp(1.4rem, 2vw, 2rem); }
   .article-heading { padding-bottom: 28px; }
   .article-heading h1 { font-size: clamp(2rem, 8.4vw, 2.8rem); }
   .article-cover { height: 230px; margin-bottom: 28px; }
+  .article-cover--caption { height: auto; }
+  .article-cover__image { height: 230px; }
   .article-body { font-size: 1rem; line-height: 1.9; }
   .article-toc { display: grid; gap: 12px; }
   .page-footer__grid { grid-template-columns: 1fr; gap: 30px; text-align: center; padding-block: 32px; }

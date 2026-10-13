@@ -445,45 +445,73 @@
   // the whole point — the lerp needs frames after the scroll event stops),
   // but goes idle the instant everything has settled so a motionless page
   // doesn't keep reading layout 60 times a second forever.
-  let dirty = true;
-  window.addEventListener("scroll", function () { dirty = true; }, { passive: true });
-  window.addEventListener("resize", function () { dirty = true; layoutStale = true; }, { passive: true });
-  window.addEventListener("load", function () { dirty = true; layoutStale = true; });
+  let dirty = true, raf = 0, animationFailed = false;
+  const wake = function () {
+    if (raf || document.hidden || animationFailed) return;
+    raf = requestAnimationFrame(tick);
+  };
+  const invalidate = function (geometryChanged) {
+    dirty = true;
+    if (geometryChanged) layoutStale = true;
+    wake();
+  };
+  window.addEventListener("scroll", function () { invalidate(false); }, { passive: true });
+  window.addEventListener("resize", function () { invalidate(true); }, { passive: true });
+  // Lazy-loaded photos and fonts can change positions after window.load.
+  document.addEventListener("load", function () { invalidate(true); }, true);
+  if (document.fonts) document.fonts.ready.then(function () { invalidate(true); });
+  reducedMotion.addEventListener("change", function () { invalidate(true); });
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) {
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0;
+    } else invalidate(true);
+  });
 
   const tick = function () {
-    if (dirty) {
-      computeTargets();
-      let settled = true;
+    raf = 0;
+    if (document.hidden || animationFailed) return;
+    try {
+      if (dirty) {
+        computeTargets();
+        let settled = true;
 
-      reveals.forEach(function (element) {
-        const state = revealState.get(element);
-        state.current = reducedMotion.matches ? state.target : lerp(state.current, state.target, 0.1);
-        if (Math.abs(state.current - state.target) < 0.001) state.current = state.target;
-        else settled = false;
-        element.style.setProperty("--p", state.current.toFixed(3));
+        reveals.forEach(function (element) {
+          const state = revealState.get(element);
+          state.current = reducedMotion.matches ? state.target : lerp(state.current, state.target, 0.1);
+          if (Math.abs(state.current - state.target) < 0.001) state.current = state.target;
+          else settled = false;
+          element.style.setProperty("--p", state.current.toFixed(3));
 
-        const words = splitWords.get(element);
-        if (words && words.length) {
-          applyWordConverge(element, words, reducedMotion.matches ? 1 : state.current);
-        }
-      });
+          const words = splitWords.get(element);
+          if (words && words.length) {
+            applyWordConverge(element, words, reducedMotion.matches ? 1 : state.current);
+          }
+        });
 
-      scenes.forEach(function (scene) {
-        const target = scene.target;
-        const next = reducedMotion.matches ? target : lerp(scene.current, target, 0.1);
-        if (Math.abs(next - scene.current) > 0.0002) settled = false;
-        scene.current = next;
-        applyScene(scene, next);
-      });
+        scenes.forEach(function (scene) {
+          const target = scene.target;
+          const next = reducedMotion.matches ? target : lerp(scene.current, target, 0.1);
+          if (Math.abs(next - scene.current) > 0.0002) settled = false;
+          scene.current = next;
+          applyScene(scene, next);
+        });
 
-      stackCards.forEach(function (card) {
-        const darken = card.querySelector(".ide-stack__darken");
-        if (darken) darken.style.opacity = ((stackCover.get(card) || 0) * 0.5).toFixed(3);
-      });
+        stackCards.forEach(function (card) {
+          const darken = card.querySelector(".ide-stack__darken");
+          if (darken) darken.style.opacity = ((stackCover.get(card) || 0) * 0.5).toFixed(3);
+        });
 
-      if (settled) dirty = false;
+        if (settled) dirty = false;
+      }
+      if (dirty) wake();
+    } catch (error) {
+      // A failed enhancement must not leave real content transparent.
+      animationFailed = true;
+      document.body.classList.remove("home-motion-ready");
+      console.error("CODE UP: scroll enhancement unavailable", error);
     }
-    requestAnimationFrame(tick);
   };
-  requestAnimationFrame(tick);
+  document.body.classList.add("home-motion-ready");
+  wake();
 })();

@@ -1,0 +1,150 @@
+{
+  "source": "Diez láminas del equipo entregadas y confirmadas por el usuario el 13 de octubre de 2026. Usar únicamente las personas de estas imágenes.",
+  "groups": [
+    {
+      "id": "directiva-2026",
+      "people": {
+        "arturo-alvarez-de-la-torre": "Presidente",
+        "gianella-silvestre": "Vicepresidenta",
+        "romy-tipacti": "Director de Eventos",
+        "mildred-belinda-bautista": "Directora de Marketing e Imagen",
+        "rubi-rojas": "Directora de Investigación y Divulgación",
+        "matias-desmonteix": "Director de Consulting",
+        "kassey-bautista": "Directora de Gestión del Talento",
+        "jean-trujillo": "Director de Gestión del Aprendizaje",
+        "nathalia-villalobos": "Directora de Finanzas y Legal"
+      }
+    },
+    {
+      "id": "eventos",
+      "people": {
+        "romy-tipacti": "Director",
+        "mathias-barreda": "Coordinador",
+        "joaquin-yi": "Miembro",
+        "angelina-paulino": "Miembro",
+        "alvaro-torres": "Miembro",
+        "valentino-montes": "Miembro",
+        "daniella-cabrera": "Miembro",
+        "cristina-nevado": "Miembro",
+        "giraldo-mollesaca": "Miembro"
+      }
+    },
+    {
+      "id": "marketing-y-diseno",
+      "people": {
+        "mildred-belinda-bautista": "Directora",
+        "gaby-perez": "Miembro",
+        "joselyn-guerreros": "Miembro",
+        "lizeth-alarcon": "Coordinadora",
+        "naomi-torres": "Miembro",
+        "kimberlin-lujan": "Miembro",
+        "kyara-parraga": "Miembro",
+        "verika-hinostroza": "Miembro"
+      }
+    },
+    {
+      "id": "marketing-redes-sociales",
+      "people": {
+        "mildred-belinda-bautista": "Directora",
+        "gabriela-kohatsu": "Miembro",
+        "sergio-rivas": "Miembro",
+        "joseph-pineda": "Coordinador",
+        "leonor-balabarca": "Miembro",
+        "lesly-campos": "Miembro",
+        "ruth-guizado": "Miembro",
+        "fernanda-torres": "Miembro"
+      }
+    },
+    {
+      "id": "consulting",
+      "people": {
+        "matias-desmonteix": "Director",
+        "carlos-ramirez": "Miembro",
+        "paula-romero": "Miembro",
+        "paulo-verde": "Miembro",
+        "alejandro-carrillo": "Miembro"
+      }
+    },
+    {
+      "id": "investigacion-y-divulgacion",
+      "people": {
+        "rubi-rojas": "Directora",
+        "alexandra-requis": "Miembro",
+        "luz-marina-calderon": "Miembro",
+        "massiel-quispe": "Miembro",
+        "matias-salcedo": "Miembro",
+        "rosa-maria-coaquira": "Miembro",
+        "manuel-fidel-serna": "Miembro"
+      }
+    },
+    {
+      "id": "proyectos",
+      "people": {
+        "gianella-silvestre": "Directora",
+        "alyssa-trujillo": "Coordinadora",
+        "tania-chavez": "Coordinadora",
+        "jorge-poma": "Miembro",
+        "daniela-garcia-saba": "Miembro",
+        "fernando-torres": "Miembro",
+        "mario-tirado": "Miembro",
+        "brayan-anderson-rua": "Miembro"
+      }
+    },
+    {
+      "id": "gestion-de-talento",
+      "people": {
+        "kassey-bautista": "Directora",
+        "lucia-canales": "Coordinadora",
+        "keyra-dionisio": "Coordinadora",
+        "abigail-chia": "Miembro",
+        "ivanna-toulier": "Miembro",
+        "angella-tavara": "Miembro",
+        "joel-pariona": "Miembro",
+        "margarita-maclena": "Miembro",
+        "valeria-barrientos": "Miembro",
+        "valentino-lujan": "Miembro",
+        "maria-fernanda-silva": "Miembro",
+        "adriana-loayza": "Miembro",
+        "pamela-geraldine-malpartida": "Miembro"
+      }
+    },
+    {
+      "id": "gestion-del-aprendizaje",
+      "people": {
+        "jean-trujillo": "Director",
+        "manuel-sebastian-taco": "Codirector",
+        "gabriel-alessandro-silva": "Coordinador",
+        "diego-huertas": "Miembro",
+        "william-soria": "Miembro",
+        "sofia-montesinos": "Miembro",
+        "esteban-bazan": "Coordinador",
+        "camila-bravo": "Miembro",
+        "oscar-daniel-perez": "Miembro",
+        "ariana-cueva": "Miembro",
+        "nicolas-cisneros": "Miembro",
+        "daniel-cabrera": "Miembro"
+      }
+    },
+    {
+      "id": "finanzas-y-legal",
+      "people": {
+        "nathalia-villalobos": "Directora",
+        "gianpietro-palacios": "Coordinador",
+        "glenda-huapaya": "Miembro",
+        "cristina-zena": "Miembro",
+        "marcela-vicuna": "Coordinadora",
+        "jhan-ulloa": "Miembro",
+        "jose-miguel-chavez": "Miembro",
+        "cesar-amanzo": "Miembro",
+        "mayra-chacaliaza": "Miembro",
+        "lucero-alondra-vera": "Miembro",
+        "luciana-pereyra": "Miembro",
+        "christopher-narvaez": "Miembro",
+        "sebastian-garcia": "Miembro",
+        "nicole-aliaga": "Miembro",
+        "katherine-pongo": "Miembro",
+        "erick-camargo": "Miembro"
+      }
+    }
+  ]
+}

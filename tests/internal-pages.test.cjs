@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { staggerDelay, approach, scrollProgress, entryProgress, followScroll, layoutTop, mount } = require('../js/pages-ide.js');
 const root = path.resolve(__dirname, '..');
-const routes = ['advisories.html', 'projects.html', 'course.html', 'contact.html', 'team.html', 'blog.html', 'Blog/blog_phishing.html', 'Blog/blog_humanchip.html', 'Blog/blog_template.html'];
+const routes = ['advisories.html', 'projects.html', 'course.html', 'contact.html', 'team.html', 'blog.html', 'Blog/blog_phishing.html', 'Blog/blog_humanchip.html', 'Blog/blog_template.html', 'Blog/blog_deepfakes.html', 'Blog/blog_ia_aprendizaje.html', 'Blog/blog_figma_videojuegos.html'];
 const source = file => fs.readFileSync(path.join(root, file), 'utf8');
 
 test('all active interior routes have one title and the shared accessible shell', () => {
@@ -25,7 +25,7 @@ test('all active interior routes have one title and the shared accessible shell'
 test('local images, scripts, styles, navigation and anchors resolve on every route', () => {
   routes.forEach(file => {
     const html = source(file);
-    const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
+    const ids = [...html.matchAll(/(?:^|\s)id="([^"]+)"/g)].map(match => match[1]);
     assert.equal(new Set(ids).size, ids.length, `duplicate ids in ${file}`);
     for (const match of html.matchAll(/\b(?:src|href)="([^"]+)"/g)) {
       const ref = match[1];
@@ -38,18 +38,24 @@ test('local images, scripts, styles, navigation and anchors resolve on every rou
   });
 });
 
-test('the directory reflects the 50 unique members and ten groups in the 2026-2 roster', () => {
+test('the directory reflects the 86 confirmed members and ten groups in the 2026-2 roster', () => {
   const html = source('team.html');
   const people = [...html.matchAll(/data-member-name="([^"]+)"/g)].map(match => match[1]);
-  assert.equal(people.length, 50, 'each person appears once, in their current area');
-  assert.equal(new Set(people).size, 50);
+  assert.equal(people.length, 86, 'each person has one primary entry and can hold additional posts');
+  assert.equal(new Set(people).size, 86);
   assert.equal((html.match(/data-team-group=/g) || []).length, 10);
   assert.match(html, /Manuel Fidel Serna/);
-  assert.match(html, /Foto por compartir/);
+  assert.doesNotMatch(html, /Foto por compartir/);
   assert.doesNotMatch(html, /src=""/);
   assert.match(html, /class="team-areas"/);
   assert.doesNotMatch(html, /type="search"|team-toolbar|data-team-empty|data-reset-team|<select/);
-  assert.equal((html.match(/class="member-portrait__photo"/g) || []).length, 49);
+  // 86 people with photos and nine additional confirmed role entries.
+  assert.equal((html.match(/class="member-portrait__photo"/g) || []).length, 95);
+  const proyectos = html.match(/data-team-group="proyectos"[\s\S]*?<\/section>/)[0];
+  assert.match(proyectos, /<span data-group-count>8 personas<\/span>/);
+  assert.match(proyectos, /^[^]*?<article class="member-portrait member-portrait--lead"[^>]+data-member-id="gianella-silvestre"[^>]*><div[^>]*><img src="media\/pages\/members-2026-2\/gianella-silvestre\.webp"[^]*?<p class="member-portrait__role">Directora<\/p>/);
+  assert.match(html, /<p>86 personas en 10 áreas\. Equipo 2026-2\.<\/p>/);
+  assert.doesNotMatch(html, /Aquí va una línea|filter-status/);
 });
 
 test('course and partner catalogs retain their real content', () => {
@@ -87,7 +93,8 @@ test('every interior uses the homepage header markup and its shared stylesheet',
   routes.forEach(file => assert.equal(header(source(file)),reference,file));
   assert.match(source('index.html'),/site-header\.css/);
   assert.doesNotMatch(source('css/pages-ide.css'), /\.page-header|\.page-tab\b|\.page-menu/);
-  assert.match(source('js/pages-ide.js'),/querySelector\('\.ide-menu-toggle'\)/);
+  assert.match(source('js/site-header.js'),/querySelector\('\.ide-menu-toggle'\)/);
+  ['index.html', ...routes].forEach(file => assert.match(source(file), /site-header\.js[^>]+defer/));
 });
 
 test('portrait choreography is staggered by row with a bounded delay', () => {

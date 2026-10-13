@@ -202,9 +202,16 @@
   async function loadSheet(url, count) {
     const image = new Image();
     image.decoding = "async";
+    image.fetchPriority = "low";
     await new Promise((resolve, reject) => {
       image.onload = resolve;
-      image.onerror = reject;
+      // Older deploys or an interrupted asset update still have the originals.
+      let retried = false;
+      image.onerror = () => {
+        if (retried) { reject(new Error("Cat sheet unavailable")); return; }
+        retried = true;
+        image.src = url.replace("media/gaze/", "media/");
+      };
       image.src = url;
     });
     if (image.decode) await image.decode();
@@ -219,13 +226,16 @@
   }
 
   async function prepare() {
+    // Give the copy and poster their first paint before downloading textures.
+    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    if (!canAnimateGaze()) return;
     // Show the neutral pose first, while the remaining directions decode.
-    const returning = await loadSheet("media/cat-return-sheet.webp?v=9", 8);
+    const returning = await loadSheet("media/gaze/cat-return-sheet.webp?v=1", 8);
     returning.forEach((frame, i) => { frames[80 + i] = frame; });
     wake();
     const jobs = [
-      ...Array.from({ length: 5 }, (_, i) => ({ url: "media/cat-right-sheet-" + i + ".webp?v=9", count: 16, offset: i * 16 })),
-      { url: "media/cat-entry-sheet.webp?v=1", count: 8, offset: 88 }
+      ...Array.from({ length: 5 }, (_, i) => ({ url: "media/gaze/cat-right-sheet-" + i + ".webp?v=1", count: 16, offset: i * 16 })),
+      { url: "media/gaze/cat-entry-sheet.webp?v=1", count: 8, offset: 88 }
     ];
     let next = 0;
     async function worker() {
