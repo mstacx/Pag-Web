@@ -65,6 +65,7 @@
     <section class="page-shell page-intro gda-intro">
       <span class="course-entry__tool">${esc(curso.herramienta)}</span>
       <h1>${esc(curso.nombre)}</h1>
+      ${curso.publico ? `<p class="gda-audience"><i class="fa fa-user-graduate" aria-hidden="true"></i>${esc(curso.publico)}</p>` : ''}
       <p class="page-lead">${esc(curso.descripcion)}</p>
       <ul class="page-tags">${curso.temas.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
       <div class="page-actions">

@@ -1,6 +1,8 @@
 /* GDA: página de curso (curso.html). Reusa los tokens de pages-ide.css. */
 .gda-intro h1 { margin-top: 10px; max-width: 18ch; }
-.gda-intro .page-lead { margin-top: 22px; }
+.gda-audience { display: flex; gap: 10px; align-items: center; margin: 18px 0 0; color: var(--page-ink); font-size: .9rem; font-weight: 650; }
+.gda-audience i { color: var(--page-accent); }
+.gda-intro .page-lead { margin-top: 14px; }
 .gda-notice { display: flex; gap: 10px; align-items: center; margin: 26px 0 0; color: var(--page-amber); font: 500 .72rem/1.6 var(--page-mono); }
 .gda-switch { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
 .gda-switch__item { display: inline-flex; align-items: center; }
