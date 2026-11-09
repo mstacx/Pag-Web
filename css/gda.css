@@ -1,0 +1,36 @@
+/* GDA: página de curso (curso.html). Reusa los tokens de pages-ide.css. */
+.gda-intro h1 { margin-top: 10px; max-width: 18ch; }
+.gda-intro .page-lead { margin-top: 22px; }
+.gda-notice { display: flex; gap: 10px; align-items: center; margin: 26px 0 0; color: var(--page-amber); font: 500 .72rem/1.6 var(--page-mono); }
+.gda-switch { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+.gda-switch__item { display: inline-flex; align-items: center; }
+.gda-switch__item[aria-current='page'] { color: var(--page-bg); background: var(--page-accent); border-color: var(--page-accent); }
+.gda-switch__item[aria-current='page']:hover { color: var(--page-bg); }
+
+.gda-cycle + .gda-cycle { margin-top: 40px; }
+.gda-cycle__title { margin-bottom: 8px; color: var(--page-accent); font: 500 .78rem/1.6 var(--page-mono); letter-spacing: 0; }
+.gda-recs { list-style: none; margin: 0; padding: 0; }
+.gda-rec { display: grid; grid-template-columns: 90px 1fr auto; gap: 22px; align-items: center; padding: 20px 0; border-top: 1px solid var(--page-line); }
+.gda-rec:last-child { border-bottom: 1px solid var(--page-line); }
+.gda-rec__eval { color: var(--page-pink); font: 600 .78rem/1.6 var(--page-mono); }
+.gda-rec h4 { margin: 0; font-size: 1.08rem; font-weight: 700; line-height: 1.4; }
+.gda-rec p { margin: 4px 0 0; color: var(--page-muted); font-size: .82rem; }
+.gda-rec__btn { min-height: 42px; padding: 10px 16px; }
+.gda-rec__soon { color: var(--page-muted); font: 500 .7rem/1.6 var(--page-mono); }
+.gda-empty { color: var(--page-muted); }
+
+.gda-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.gda-card { padding: 30px; border: 1px solid var(--page-line); border-radius: 8px; background: #1c203899; }
+.gda-card__icon { color: var(--page-accent); font-size: 1.3rem; margin-bottom: 18px; }
+.gda-card h3 { font-size: 1.35rem; margin-bottom: 12px; }
+.gda-card p { color: var(--page-muted); font-size: .94rem; }
+
+.course-entry__gda { margin-left: 22px; }
+
+@media (max-width: 640px) {
+  .gda-rec { grid-template-columns: 1fr; gap: 8px; }
+  .gda-rec__btn { justify-self: start; }
+  .gda-cards { grid-template-columns: 1fr; }
+  .gda-card { padding: 24px; }
+  .course-entry__gda { margin-left: 0; }
+}
