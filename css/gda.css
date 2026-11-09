@@ -21,7 +21,9 @@
 .gda-rec__soon { color: var(--page-muted); font: 500 .7rem/1.6 var(--page-mono); }
 .gda-empty { color: var(--page-muted); }
 
-.gda-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.gda-drive { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
+.gda-drive__parts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 36px; }
+.gda-drive__parts p { margin: 0; }
 .gda-card { padding: 30px; border: 1px solid var(--page-line); border-radius: 8px; background: #1c203899; }
 .gda-card__icon { color: var(--page-accent); font-size: 1.3rem; margin-bottom: 18px; }
 .gda-card h3 { font-size: 1.35rem; margin-bottom: 12px; }
@@ -30,6 +32,7 @@
 @media (max-width: 640px) {
   .gda-rec { grid-template-columns: 1fr; gap: 8px; }
   .gda-rec__btn { justify-self: start; }
-  .gda-cards { grid-template-columns: 1fr; }
+  .gda-drive, .gda-drive__parts { grid-template-columns: 1fr; gap: 24px; }
+  .gda-drive .page-button { justify-self: start; }
   .gda-card { padding: 24px; }
 }

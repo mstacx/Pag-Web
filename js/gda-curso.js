@@ -41,17 +41,7 @@
     return `<div class="gda-cycle"><h3 class="gda-cycle__title">ciclo/${esc(ciclo)}</h3><ul class="gda-recs">${items}</ul></div>`;
   }).join('');
 
-  const driveCard = (url, titulo, texto, icono) => {
-    const link = safeUrl(url);
-    return `
-      <article class="gda-card">
-        <i class="fa ${icono} gda-card__icon" aria-hidden="true"></i>
-        <h3>${titulo}</h3>
-        <p>${texto}</p>
-        ${link ? `<a class="page-link" href="${esc(link)}"${ext}>Abrir carpeta en Drive <i class="fa fa-arrow-right" aria-hidden="true"></i></a>` : '<span class="gda-rec__soon">Pronto</span>'}
-      </article>`;
-  };
-
+  const drive = safeUrl(curso.drive);
   const whatsapp = safeUrl(curso.whatsapp);
 
   root.innerHTML = `
@@ -61,11 +51,22 @@
     </section>
 
     <section class="page-shell page-section" id="material">
-      <div class="page-section-head"><h2>material/</h2><p>Organizado por ciclo y evaluación.</p></div>
-      <div class="gda-cards">
-        ${driveCard(curso.drive && curso.drive.codeup, 'Material CODE UP', 'PPTs de asesoría, ejercicios trabajados y resoluciones preparadas por nuestros asesores.', 'fa-code')}
-        ${driveCard(curso.drive && curso.drive.curso, 'Material del curso', 'PPTs de clase y exámenes pasados para practicar.', 'fa-book')}
-      </div>
+      <div class="page-section-head"><h2>material/</h2><p>Todo el material del curso en un solo Drive, organizado por evaluación.</p></div>
+      <article class="gda-card gda-drive">
+        <div class="gda-drive__parts">
+          <div>
+            <i class="fa fa-code gda-card__icon" aria-hidden="true"></i>
+            <h3>Material CODE UP</h3>
+            <p>PPTs de asesoría, ejercicios, soluciones y archivos de trabajo preparados por nuestros asesores.</p>
+          </div>
+          <div>
+            <i class="fa fa-book gda-card__icon" aria-hidden="true"></i>
+            <h3>Material del curso</h3>
+            <p>Sílabo, PPTs de clase y exámenes pasados para practicar.</p>
+          </div>
+        </div>
+        ${drive ? `<a class="page-button" href="${esc(drive)}"${ext}><i class="fab fa-google-drive" aria-hidden="true"></i>Abrir el Drive del curso</a>` : '<span class="gda-rec__soon">Pronto</span>'}
+      </article>
     </section>
 
     <div class="page-shell">

@@ -4,7 +4,8 @@
  *
  * - Para publicar una grabación: agrega una fila en `grabaciones` del curso.
  *   El `link` es el enlace de Teams. Si queda vacío (''), el botón sale como "Pronto".
- * - Los enlaces de Drive deben estar restringidos a cuentas UP, nunca "cualquier persona con el enlace".
+ * - `drive` es el link a la carpeta "<CURSO> – Material" de la unidad compartida del curso.
+ *   Debe estar compartida con "Universidad del Pacífico" (lector), nunca "cualquier persona con el enlace".
  * - No publicar teléfonos ni correos personales de asesores.
  * - Para agregar un curso: copia un bloque completo y cambia `id` (va en la URL: advisories.html?c=id).
  */
@@ -17,10 +18,7 @@ window.GDA_CURSOS = [
     descripcion: 'Curso transversal de Excel: desde funciones básicas hasta herramientas avanzadas para organizar, analizar y automatizar datos.',
     temas: ['Fórmulas', 'Funciones lógicas', 'Funciones de búsqueda', 'Filtros avanzados', 'Tablas dinámicas'],
     whatsapp: 'https://chat.whatsapp.com/',
-    drive: {
-      codeup: 'https://drive.google.com/',
-      curso: 'https://drive.google.com/'
-    },
+    drive: 'https://drive.google.com/',
     grabaciones: [
       { ciclo: '2026-II', evaluacion: 'PC1', tema: 'Expresión matemática en una imagen', fecha: '', asesor: '', link: 'https://www.youtube.com/' },
       { ciclo: '2026-II', evaluacion: 'PC2', tema: 'Funciones lógicas', fecha: '', asesor: '', link: 'https://www.youtube.com/' },
@@ -36,10 +34,7 @@ window.GDA_CURSOS = [
     descripcion: 'Introducción a la programación en Python: desde los conceptos básicos hasta resolver problemas con código propio.',
     temas: ['Fundamentos', 'Condicionales y bucles', 'Funciones', 'Estructuras de datos'],
     whatsapp: 'https://chat.whatsapp.com/',
-    drive: {
-      codeup: 'https://drive.google.com/',
-      curso: 'https://drive.google.com/'
-    },
+    drive: 'https://drive.google.com/',
     grabaciones: [
       { ciclo: '2026-II', evaluacion: 'PC1', tema: 'Por definir', fecha: '', asesor: '', link: 'https://www.youtube.com/' },
       { ciclo: '2026-II', evaluacion: 'Parcial', tema: 'Por definir', fecha: '', asesor: '', link: '' }
@@ -53,10 +48,7 @@ window.GDA_CURSOS = [
     descripcion: 'Excel y Python aplicados al análisis de datos de negocio: limpiar información, visualizar hallazgos y crear reportes útiles.',
     temas: ['Limpieza', 'Visualización', 'Reportes'],
     whatsapp: 'https://chat.whatsapp.com/',
-    drive: {
-      codeup: 'https://drive.google.com/',
-      curso: 'https://drive.google.com/'
-    },
+    drive: 'https://drive.google.com/',
     grabaciones: [
       { ciclo: '2026-II', evaluacion: 'PC1', tema: 'Por definir', fecha: '', asesor: '', link: 'https://www.youtube.com/' },
       { ciclo: '2026-II', evaluacion: 'Parcial', tema: 'Por definir', fecha: '', asesor: '', link: '' }
@@ -70,10 +62,7 @@ window.GDA_CURSOS = [
     descripcion: 'Curso práctico de R y Stata para analizar microdatos de la ENAHO: manejo de bases, estadística descriptiva e inferencia.',
     temas: ['ENAHO', 'Manejo de bases', 'Descriptiva', 'Inferencia'],
     whatsapp: 'https://chat.whatsapp.com/',
-    drive: {
-      codeup: 'https://drive.google.com/',
-      curso: 'https://drive.google.com/'
-    },
+    drive: 'https://drive.google.com/',
     grabaciones: [
       { ciclo: '2026-II', evaluacion: 'PC1', tema: 'Por definir', fecha: '', asesor: '', link: 'https://www.youtube.com/' },
       { ciclo: '2026-II', evaluacion: 'Parcial', tema: 'Por definir', fecha: '', asesor: '', link: '' }
@@ -87,10 +76,7 @@ window.GDA_CURSOS = [
     descripcion: 'Bases de datos con SQL y visualización en Power BI: consultar, relacionar y presentar información para la toma de decisiones.',
     temas: ['Consultas SQL', 'Joins', 'Modelo de datos', 'Dashboards'],
     whatsapp: 'https://chat.whatsapp.com/',
-    drive: {
-      codeup: 'https://drive.google.com/',
-      curso: 'https://drive.google.com/'
-    },
+    drive: 'https://drive.google.com/',
     grabaciones: [
       { ciclo: '2026-II', evaluacion: 'PC1', tema: 'Por definir', fecha: '', asesor: '', link: 'https://www.youtube.com/' },
       { ciclo: '2026-II', evaluacion: 'Parcial', tema: 'Por definir', fecha: '', asesor: '', link: '' }
