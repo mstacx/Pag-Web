@@ -1,4 +1,4 @@
-/* GDA: página de curso (curso.html). Reusa los tokens de pages-ide.css. */
+/* GDA: página de curso (advisories.html). Reusa los tokens de pages-ide.css. */
 .gda-intro h1 { margin-top: 10px; max-width: 18ch; }
 .gda-audience { display: flex; gap: 10px; align-items: center; margin: 18px 0 0; color: var(--page-ink); font-size: .9rem; font-weight: 650; }
 .gda-audience i { color: var(--page-accent); }
@@ -27,12 +27,9 @@
 .gda-card h3 { font-size: 1.35rem; margin-bottom: 12px; }
 .gda-card p { color: var(--page-muted); font-size: .94rem; }
 
-.course-entry__gda { margin-left: 22px; }
-
 @media (max-width: 640px) {
   .gda-rec { grid-template-columns: 1fr; gap: 8px; }
   .gda-rec__btn { justify-self: start; }
   .gda-cards { grid-template-columns: 1fr; }
   .gda-card { padding: 24px; }
-  .course-entry__gda { margin-left: 0; }
 }

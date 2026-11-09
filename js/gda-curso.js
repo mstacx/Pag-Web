@@ -1,34 +1,27 @@
-/* Renderiza curso.html?c=<id> a partir de window.GDA_CURSOS (js/gda-cursos.js). */
+/* Renderiza advisories.html?c=<id> a partir de window.GDA_CURSOS (js/gda-cursos.js). Sin ?c abre el primer curso. */
 (() => {
   const cursos = window.GDA_CURSOS || [];
   const root = document.querySelector('[data-gda-curso]');
-  if (!root) return;
+  if (!root || !cursos.length) return;
 
   const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
   const safeUrl = url => /^https:\/\//i.test(url || '') ? url : '';
   const ext = ' target="_blank" rel="noopener noreferrer"';
+  const slot = name => document.querySelector(`[data-gda-${name}]`);
 
   const id = new URLSearchParams(window.location.search).get('c');
-  const curso = cursos.find(item => item.id === id);
-  const crumb = document.querySelector('[data-gda-crumb]');
-
-  const switcher = cursos.map(item =>
-    `<a class="filter-button gda-switch__item" href="curso.html?c=${encodeURIComponent(item.id)}"${item === curso ? ' aria-current="page"' : ''}>${esc(item.nombre)}</a>`
-  ).join('');
-
-  if (!curso) {
-    document.title = 'Cursos GDA | Club CODE UP';
-    root.innerHTML = `
-      <section class="page-shell page-intro">
-        <h1>Elige tu <span class="page-title-accent">curso.</span></h1>
-        <p class="page-lead">Grabaciones de asesorías, material y comunidad de cada curso que acompaña GDA.</p>
-        <nav class="gda-switch" aria-label="Cursos GDA">${switcher}</nav>
-      </section>`;
-    return;
-  }
+  const curso = cursos.find(item => item.id === id) || cursos[0];
 
   document.title = `${curso.nombre} | Club CODE UP`;
-  if (crumb) crumb.textContent = `${curso.id}.md`;
+  slot('crumb').textContent = `${curso.id}.md`;
+  slot('tool').textContent = curso.herramienta;
+  slot('title').textContent = curso.nombre;
+  slot('audience').innerHTML = curso.publico ? `<i class="fa fa-user-graduate" aria-hidden="true"></i>${esc(curso.publico)}` : '';
+  slot('lead').textContent = curso.descripcion;
+  slot('tags').innerHTML = curso.temas.map(t => `<li>${esc(t)}</li>`).join('');
+  slot('switch').innerHTML = cursos.map(item =>
+    `<a class="filter-button gda-switch__item" href="advisories.html?c=${encodeURIComponent(item.id)}"${item === curso ? ' aria-current="page"' : ''}>${esc(item.nombre)}</a>`
+  ).join('');
 
   const ciclos = [...new Set(curso.grabaciones.map(g => g.ciclo))];
   const filas = ciclos.map(ciclo => {
@@ -62,20 +55,6 @@
   const whatsapp = safeUrl(curso.whatsapp);
 
   root.innerHTML = `
-    <section class="page-shell page-intro gda-intro">
-      <span class="course-entry__tool">${esc(curso.herramienta)}</span>
-      <h1>${esc(curso.nombre)}</h1>
-      ${curso.publico ? `<p class="gda-audience"><i class="fa fa-user-graduate" aria-hidden="true"></i>${esc(curso.publico)}</p>` : ''}
-      <p class="page-lead">${esc(curso.descripcion)}</p>
-      <ul class="page-tags">${curso.temas.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
-      <div class="page-actions">
-        <a class="page-button" href="#grabaciones">Ver grabaciones <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
-        <a class="page-link" href="#material">Ir al material <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
-      </div>
-      <p class="gda-notice"><i class="fa fa-lock" aria-hidden="true"></i>Grabaciones y material disponibles solo con tu cuenta UP.</p>
-      <nav class="gda-switch" aria-label="Otros cursos GDA">${switcher}</nav>
-    </section>
-
     <section class="page-shell page-section" id="grabaciones">
       <div class="page-section-head"><h2>grabaciones/</h2><p>Repasa la asesoría de cada evaluación cuando la necesites.</p></div>
       ${filas || '<p class="gda-empty">Aún no hay grabaciones publicadas para este curso.</p>'}

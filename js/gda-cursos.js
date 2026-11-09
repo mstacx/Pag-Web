@@ -1,12 +1,12 @@
 /*
  * Datos de los cursos GDA (Gestión de Aprendizaje).
- * Este es el único archivo que hay que editar para actualizar la página curso.html.
+ * Este es el único archivo que hay que editar para actualizar la página de cursos (advisories.html).
  *
  * - Para publicar una grabación: agrega una fila en `grabaciones` del curso.
  *   El `link` es el enlace de Teams. Si queda vacío (''), el botón sale como "Pronto".
  * - Los enlaces de Drive deben estar restringidos a cuentas UP, nunca "cualquier persona con el enlace".
  * - No publicar teléfonos ni correos personales de asesores.
- * - Para agregar un curso: copia un bloque completo y cambia `id` (va en la URL: curso.html?c=id).
+ * - Para agregar un curso: copia un bloque completo y cambia `id` (va en la URL: advisories.html?c=id).
  */
 window.GDA_CURSOS = [
   {

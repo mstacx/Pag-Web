@@ -60,8 +60,8 @@ test('the directory reflects the 86 confirmed members and ten groups in the 2026
 
 test('course and partner catalogs retain their real content', () => {
   const html = source('advisories.html');
-  assert.equal((html.match(/data-course=/g) || []).length, 7);
-  assert.equal((html.match(/Asesoría gratuita ·/g) || []).length, 4);
+  assert.match(html, /js\/gda-cursos\.js/);
+  assert.equal((source('js/gda-cursos.js').match(/^\s+id: '/gm) || []).length, 5);
   assert.equal((source('course.html').match(/class="alliance-row /g) || []).length, 5);
   ['Mi Profe UP', 'Nuevo videojuego', 'Ayuda a C.cat', 'Bookchase UP'].forEach(title => assert.ok(source('projects.html').includes(title)));
 });
